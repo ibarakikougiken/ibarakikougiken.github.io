@@ -9,6 +9,7 @@ const DOMAIN = import.meta.env.DOMAIN;
 
 interface Props {
   title: string;
+  description?: string;
   og?: {
     title: string;
     description: string;
@@ -30,6 +31,7 @@ interface Props {
 
 const {
   title,
+  description,
   og,
   twitter,
   additionalMeta,
@@ -43,10 +45,13 @@ const {
 <html lang="ja-JP">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <title>{title}</title>
+    <meta
+      name="description"
+      content={description || title + " | 茨城大学航空技術研究会"}
+    />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href={favicon} />
-    <meta name="generator" content={Astro.generator} />
     {
       additionalMeta &&
         additionalMeta.map((meta) => (
@@ -77,7 +82,6 @@ const {
         </>
       )
     }
-    <title>{title}</title>
   </head>
   <body>
     {
@@ -114,9 +118,6 @@ const {
   }
   ::backdrop {
     backdrop-filter: blur(3px);
-  }
-  main {
-    /* min-height: 80vh; */
   }
   body {
     margin: 0;
