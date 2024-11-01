@@ -1,0 +1,20 @@
+---
+import "@pagefind/default-ui/css/ui.css";
+---
+
+<div id="search"></div>
+<style is:global>
+  .pagefind-ui__drawer {
+    overflow: scroll;
+  }
+</style>
+<style>
+  #search {
+    padding: 1rem;
+  }
+</style>
+<script>
+  /// @ts-ignore
+  import { PagefindUI } from "@pagefind/default-ui";
+  new PagefindUI({ element: "#search" });
+</script>

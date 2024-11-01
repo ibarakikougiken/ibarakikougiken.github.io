@@ -1,0 +1,212 @@
+---
+import { Icon } from "astro-icon/components";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import favicon from "../assets/images/favicon.png?url";
+import "@fontsource-variable/noto-sans-jp";
+
+const DOMAIN = import.meta.env.DOMAIN;
+
+interface Props {
+  title: string;
+  og?: {
+    title: string;
+    description: string;
+    image: string;
+  };
+  twitter?: {
+    title: string;
+    description: string;
+    image: string;
+  };
+  additionalMeta?: {
+    name: string;
+    content: string;
+  }[];
+  noHeader?: boolean;
+  noFooter?: boolean;
+  headerFixed?: boolean;
+}
+
+const {
+  title,
+  og,
+  twitter,
+  additionalMeta,
+  noHeader,
+  noFooter,
+  headerFixed = true,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href={favicon} />
+    <meta name="generator" content={Astro.generator} />
+    {
+      additionalMeta &&
+        additionalMeta.map((meta) => (
+          <meta name={meta.name} content={meta.content} />
+        ))
+    }
+    {
+      og && (
+        <>
+          <meta property="og:title" content={og.title} />
+          <meta property="og:description" content={og.description} />
+          <meta property="og:image" content={`https://${DOMAIN}/${og.image}`} />
+        </>
+      )
+    }
+    {
+      twitter && (
+        <>
+          <meta name="twitter:card" content="summary" />
+          <meta name="twitter:site" content="@ibarakikougiken" />
+          <meta name="twitter:creator" content="@ibarakikougiken" />
+          <meta name="twitter:title" content={twitter.title} />
+          <meta name="twitter:description" content={twitter.description} />
+          <meta
+            name="twitter:image"
+            content={`https://${DOMAIN}/${twitter.image}`}
+          />
+        </>
+      )
+    }
+    <title>{title}</title>
+  </head>
+  <body>
+    {
+      !noHeader && (
+        <Header
+          style={headerFixed ? "position: fixed;" : "position: absolute;"}
+        />
+      )
+    }
+
+    <div id="main">
+      <slot />
+    </div>
+
+    {!noFooter && <Footer />}
+
+    <Icon
+      name="mdi:arrow-up"
+      width="3rem"
+      height="3rem"
+      id="back-to-top"
+      style="display: none"
+    />
+  </body>
+</html>
+<style is:global>
+  :root {
+    --black: #202020;
+    --blue: #0653f7;
+    --sky: #00aaff;
+    --white: #fafafa;
+    --yellow: #fefd00;
+    --orange: #fcaa00;
+  }
+  ::backdrop {
+    backdrop-filter: blur(3px);
+  }
+  main {
+    /* min-height: 80vh; */
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    min-height: 100vh;
+
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+
+    font-family: "Noto Sans JP Variable", sans-serif;
+    font-size: clamp(1rem, calc(0.75rem + 1vw), 1.2rem);
+
+    scrollbar-gutter: stable;
+
+    line-height: 1.7;
+    word-break: normal;
+    word-wrap: break-word;
+    line-break: strict;
+    hyphens: auto;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  #back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1000;
+    background-color: var(--white);
+    border: 1px solid var(--black);
+    border-radius: 50%;
+    animation: fadeIn 0.3s ease forwards;
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  #back-to-top:hover {
+    color: var(--blue);
+  }
+</style>
+<script>
+  const fontSize = getComputedStyle(document.documentElement).fontSize;
+  const remSize = parseFloat(fontSize);
+
+  const anchors = document.querySelectorAll<HTMLAnchorElement>(
+    'a[href^="#"]:not([href="#"])',
+  );
+  anchors.forEach((anchor) => {
+    anchor.addEventListener("click", (e) => {
+      e.preventDefault();
+      const href = anchor.getAttribute("href");
+      if (!href) return;
+      const target = document.querySelector(decodeURI(href));
+      if (!target) {
+        location.href = href;
+        return;
+      }
+      const offset = target.getBoundingClientRect().top - remSize * 2;
+      window.scrollTo({
+        top: offset + window.scrollY,
+        behavior: "smooth",
+      });
+    });
+  });
+
+  const backToTop = document.getElementById("back-to-top");
+  window.addEventListener("scroll", () => {
+    if (!backToTop?.style) return;
+    if (window.scrollY > remSize * 10) {
+      backToTop.style.display = "block";
+    } else {
+      backToTop.style.display = "none";
+    }
+  });
+  backToTop?.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+</script>

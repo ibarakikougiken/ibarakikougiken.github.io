@@ -1,0 +1,183 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Category from "../components/Category.astro";
+
+type Range<
+  N extends number,
+  Result extends number = never,
+  C extends never[] = [],
+> = C["length"] extends N
+  ? Result
+  : Range<N, Result | C["length"], [...C, never]>;
+
+const timeline: Record<
+  number, // year
+  Partial<
+    Record<
+      Range<13>, // month (0-12)
+      Partial<
+        Record<
+          Range<32>, // day (0-31)
+          { title: string; description?: string }
+        >
+      >
+    >
+  >
+> = {
+  1997: {
+    0: {
+      0: {
+        title: "茨城大学航空技術研究会発足",
+      },
+    },
+    4: {
+      0: {
+        title: "第21回鳥人間コンテスト落選",
+      },
+    },
+  },
+  1998: {
+    5: {
+      0: {
+        title: "初の鳥人間コンテスト出場決定",
+      },
+    },
+    7: {
+      31: {
+        title: "強風により第22回鳥人間コンテスト棄権",
+      },
+    },
+  },
+  2002: {
+    6: {
+      0: {
+        title: "ふれあいの里合宿開始",
+      },
+    },
+    7: {
+      27: {
+        title: "鳥コンツアー開始",
+      },
+    },
+  },
+  2006: {
+    4: {
+      0: {
+        title: "第30回鳥人間コンテスト落選",
+      },
+    },
+  },
+  2007: {
+    4: {
+      19: {
+        title: "第31回鳥人間コンテスト落選",
+      },
+    },
+  },
+  2008: {
+    4: {
+      23: {
+        title: "第32回鳥人間コンテスト出場決定",
+      },
+    },
+    7: {
+      26: {
+        title: "第32回鳥人間コンテスト出場",
+        description: "記録: 14.49m フォーミュラー部門6位入賞",
+      },
+    },
+  },
+  2009: {
+    12: {
+      25: {
+        title: "第33回鳥人間コンテスト落選",
+      },
+    },
+  },
+  2018: {
+    7: {
+      28: {
+        title: "第41回鳥人間コンテスト出場",
+        description: "記録: 27.01m 滑空機部門10位入賞",
+      },
+    },
+  },
+};
+---
+
+<Layout title="航技研について">
+  <Category name="About" text="航技研について" />
+  <main>
+    <h1>茨城大学航空技術研究会について</h1>
+
+    <h2>沿革</h2>
+    <ul class="timeline">
+      {
+        Object.entries(timeline).map(([year, months]) => (
+          <li>
+            <h3>{year}年</h3>
+            <ul class="timeline-year">
+              {Object.entries(months).map(([month, days]) => (
+                <li>
+                  <h4>{month === "0" ? "" : `${month}月`}</h4>
+                  <ul class="timeline-month">
+                    {Object.entries(days).map(
+                      ([day, { title, description }]) => (
+                        <li class="event">
+                          <h5 class="date">{day === "0" ? "" : `${day}日`}</h5>
+                          <p class="title">{title}</p>
+                          <p class="description">{description}</p>
+                        </li>
+                      ),
+                    )}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Layout>
+<style>
+  main {
+    margin: 0 auto;
+    padding: clamp(1rem, 2vw, 2rem);
+    width: clamp(320px, 80vw, 800px);
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  .timeline {
+    padding: 0;
+  }
+
+  .event {
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    padding: 1rem;
+
+    p {
+      margin: 0.5rem 0;
+    }
+    .date {
+      margin: 0;
+    }
+    .title {
+      font-size: 1.25rem;
+    }
+    .description {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .timeline ul {
+      padding: 0;
+    }
+  }
+</style>

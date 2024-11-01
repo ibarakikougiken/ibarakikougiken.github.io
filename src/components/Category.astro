@@ -1,0 +1,67 @@
+---
+interface Category {
+  name: string;
+  text: string;
+}
+
+const { name, text } = Astro.props;
+---
+
+<div class="header-bg"></div>
+<div class="bg">
+  <div class="word-group">
+    {
+      name
+        .trim()
+        .split("")
+        .map((word: string, index: number) => (
+          <span style={{ animationDelay: `${index * 0.05}s` }} class="word">
+            {word}
+          </span>
+        ))
+    }
+  </div>
+  <span class="text">{text}</span>
+</div>
+<style>
+  .header-bg {
+    width: 100%;
+    height: calc(clamp(4rem, 5vw, 5rem) + 1rem * 2);
+    background-color: var(--sky);
+  }
+  .bg {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 1.5rem;
+    background-color: var(--sky);
+    color: var(--white);
+    border-radius: 0 0 1rem 1rem;
+  }
+  .word-group {
+    display: inline-block;
+    overflow: hidden;
+    padding: 0 1rem;
+  }
+  .word {
+    display: inline-block;
+    overflow: clip;
+    font-size: 3rem;
+    font-weight: 700;
+    transform: translateY(100%);
+    animation: slide 0.6s ease forwards;
+  }
+  .text {
+    display: block;
+    font-size: 1rem;
+  }
+  @keyframes slide {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+</style>

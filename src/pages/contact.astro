@@ -1,0 +1,40 @@
+---
+import Category from "../components/Category.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="お問い合わせ">
+  <Category name="Contact" text="お問い合わせ" />
+  <main>
+    <h1>お問い合わせ</h1>
+    <p>ドローン空撮依頼、見学希望等、お気軽にお問い合わせください。</p>
+
+    <h2>メール</h2>
+    <p>
+      アドレス: <a
+        href="mailto:ibarakikougiken@gmail.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        ibarakikougiken@gmail.com
+      </a>
+    </p>
+
+    <h2>Twitter</h2>
+    <p>
+      DM: <a
+        href="https://x.com/messages/compose?recipient_id=	825911593217126400"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        @ibarakikougiken
+      </a>
+    </p>
+  </main>
+  <style>
+    main {
+      margin: 0 auto;
+      width: clamp(320px, 80vw, 800px);
+    }
+  </style>
+</Layout>

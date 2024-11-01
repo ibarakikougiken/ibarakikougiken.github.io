@@ -1,0 +1,17 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Carousel from "@components/Carousel.astro";
+---
+
+<Layout title="茨城大学航空技術研究会" noFooter>
+  <Carousel />
+</Layout>
+
+<style>
+  main {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 100%;
+    width: clamp(320px, 80vw, 800px);
+  }
+</style>

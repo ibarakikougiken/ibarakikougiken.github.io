@@ -1,0 +1,146 @@
+---
+import { getCollection } from "astro:content";
+import Category from "../components/Category.astro";
+import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+
+function sortByPublishedAt(
+  a: { data: { publishedAt: Date } },
+  b: { data: { publishedAt: Date } },
+) {
+  return b.data.publishedAt.getTime() - a.data.publishedAt.getTime();
+}
+
+const news = (await getCollection("news")).sort(sortByPublishedAt);
+const articles = (
+  await getCollection("articles", ({ data }) => {
+    return import.meta.env.PROD ? !data.isDraft : true;
+  })
+).sort(sortByPublishedAt);
+
+function formatDate(date: Date) {
+  return new Date(date).toLocaleDateString("ja-JP", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+---
+
+<Layout title="投稿一覧">
+  <Category name="Posts" text="投稿" />
+  <main>
+    <h1>投稿一覧</h1>
+
+    <ul class="menu">
+      <li class="menu-item">
+        <a href="/news">
+          <Icon name="mdi:newspaper-variant-multiple-outline" />
+          お知らせ一覧
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="/articles">
+          <Icon name="mdi:file-document-outline" />
+          記事一覧
+        </a>
+      </li>
+    </ul>
+
+    <h2>最新のお知らせ</h2>
+    <div class="group">
+      {
+        news.map((post, index) => (
+          <a href={`/news/${post.slug}`} data-index={index}>
+            <div class="card">
+              <span class="card-title">{post.data.title}</span>
+              <div class="card-body">
+                <img src={`/news/${post.slug}.png`} alt={post.data.title} />
+                <time datetime={new Date(post.data.publishedAt).toString()}>
+                  {formatDate(post.data.publishedAt)}
+                </time>
+              </div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+    <h2>最新の投稿</h2>
+    <div class="group">
+      {
+        articles.map((post, index) => (
+          <a href={`/articles/${post.slug}`} data-index={index}>
+            <div class="card">
+              <span class="card-title">{post.data.title}</span>
+              <div class="card-body">
+                <img src={`/articles/${post.slug}.png`} alt={post.data.title} />
+                <time datetime={new Date(post.data.publishedAt).toString()}>
+                  {formatDate(post.data.publishedAt)}
+                </time>
+              </div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </main>
+  <style>
+    main {
+      margin: 0 auto;
+      width: clamp(320px, 80vw, 800px);
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    .menu {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    .menu-item {
+      border: 1px solid #eaeaea;
+      border-radius: 8px;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+    }
+    .group {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+    .card {
+      border: 1px solid #eaeaea;
+      border-radius: 8px;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+      margin: 1rem 0;
+      padding: 1rem;
+    }
+    .card:hover {
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    }
+    .card-title {
+      display: block;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      text-overflow: ellipsis ellipsis;
+      white-space: nowrap;
+    }
+    .card-body {
+      display: flex;
+      flex-direction: column;
+    }
+    img {
+      width: 100%;
+      aspect-ratio: 120 / 63;
+      height: auto;
+      object-fit: cover;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  </style>
+</Layout>

@@ -1,0 +1,89 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import PostsHeader from "../../components/PostsHeader.astro";
+import "github-markdown-css/github-markdown-light.css";
+
+interface Props {
+  articles: CollectionEntry<"articles">;
+}
+
+export async function getStaticPaths() {
+  const articles = await getCollection("articles", ({ data }) => {
+    return import.meta.env.PROD ? !data.isDraft : true;
+  });
+  return articles.map((articles) => ({
+    params: { slug: articles.slug },
+    props: {
+      articles,
+    },
+  }));
+}
+
+const { articles } = Astro.props;
+const { Content } = await articles.render();
+---
+
+<Layout
+  title={articles.data.title}
+  og={{
+    title: articles.data.title,
+    description: articles.data.title,
+    image: `articles/${articles.slug}.png`,
+  }}
+  twitter={{
+    title: articles.data.title,
+    description: articles.data.title,
+    image: `articles/${articles.slug}.png`,
+  }}
+  headerFixed={false}
+>
+  <PostsHeader
+    title={articles.data.title}
+    publishedAt={articles.data.publishedAt}
+    updatedAt={articles.data.updatedAt}
+  />
+  <main class="markdown-body" data-pagefind-body>
+    <Content />
+  </main>
+</Layout>
+<style>
+  main {
+    width: clamp(320px, 80vw, 800px);
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    padding: 1rem;
+  }
+  .markdown-body {
+    font-family: "Noto Sans JP", sans-serif;
+  }
+</style>
+<style is:inline>
+  img {
+    width: 100%;
+    height: auto;
+    margin: 1rem 0;
+    object-fit: cover;
+  }
+  .markdown-body pre::before {
+    content: attr(data-language);
+    display: block;
+    position: relative;
+    top: -0.25rem;
+    left: 0;
+  }
+  code {
+    counter-reset: step;
+    counter-increment: step 0;
+  }
+  code .line::before {
+    content: counter(step);
+    counter-increment: step;
+    width: 1rem;
+    margin-right: 1.5rem;
+    display: inline-block;
+    text-align: right;
+    color: rgba(115, 138, 148, 0.4);
+  }
+</style>

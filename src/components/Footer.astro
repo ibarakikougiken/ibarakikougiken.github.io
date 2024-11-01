@@ -1,0 +1,48 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<footer data-pagefind-ignore="all">
+  <p>茨城大学航空技術研究会</p>
+  <div>
+    <a href="https://twitter.com/ibarakikougiken" target="_blank">
+      <Icon name="mdi:twitter" width="2rem" height="2rem" />
+    </a>
+    <a href="https://www.instagram.com/ibaraki_kougiken/" target="_blank">
+      <Icon name="mdi:instagram" width="2rem" height="2rem" />
+    </a>
+    <a href="https://www.youtube.com/@ibarakikougiken" target="_blank">
+      <Icon name="mdi:youtube" width="2rem" height="2rem" />
+    </a>
+  </div>
+</footer>
+<style>
+  footer {
+    background-color: #333;
+    color: white;
+    padding: 2rem;
+    text-align: center;
+  }
+  a {
+    margin: 0 0.5rem;
+    padding: 0.5rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: white;
+    color: #333;
+    &:has([data-icon="mdi:twitter"]) {
+      background-color: #1da1f2;
+      color: white;
+    }
+    &:has([data-icon="mdi:instagram"]) {
+      background-color: #de0041;
+      color: white;
+    }
+    &:has([data-icon="mdi:youtube"]) {
+      background-color: #ff0000;
+      color: white;
+    }
+  }
+</style>

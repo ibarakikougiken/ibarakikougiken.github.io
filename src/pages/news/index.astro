@@ -1,0 +1,92 @@
+---
+import { getCollection } from "astro:content";
+import Category from "../../components/Category.astro";
+import Layout from "../../layouts/Layout.astro";
+
+const collection = await getCollection("news");
+const news = collection.sort((a, b) => {
+  return (
+    new Date(b.data.publishedAt).getTime() -
+    new Date(a.data.publishedAt).getTime()
+  );
+});
+function formatDate(date: Date) {
+  return new Date(date).toLocaleDateString("ja-JP", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+---
+
+<Layout title="お知らせ">
+  <Category name="News" text="お知らせ" />
+  <main>
+    <h1>お知らせ</h1>
+    <h2>最新のお知らせ</h2>
+    <div class="news_group">
+      {
+        news.map((post, index) => (
+          <a href={`/news/${post.slug}`} data-index={index}>
+            <div class="card">
+              <span class="card-title">{post.data.title}</span>
+              <div class="card-body">
+                <img src={`/news/${post.slug}.png`} alt={post.data.title} />
+                <time datetime={new Date(post.data.publishedAt).toString()}>
+                  {formatDate(post.data.publishedAt)}
+                </time>
+              </div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </main>
+</Layout>
+<style>
+  main {
+    margin: 0 auto;
+    width: clamp(320px, 80vw, 800px);
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  .news_group {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+  .card {
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    margin: 1rem 0;
+    padding: 1rem;
+  }
+  .card:hover {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+  .card-title {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis ellipsis;
+    white-space: nowrap;
+  }
+  .card-body {
+    display: flex;
+    flex-direction: column;
+  }
+  img {
+    width: 100%;
+    aspect-ratio: 120 / 63;
+    height: auto;
+    object-fit: cover;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+</style>

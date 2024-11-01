@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Category from "../components/Category.astro";
+---
+
+<Layout
+  title="404 Not Found"
+  additionalMeta={[{ name: "robots", content: "noindex" }]}
+>
+  <Category name="404" text="404 Not Found" />
+  <main>
+    <h1>404 Not Found</h1>
+    <p>お探しのページが見つかりませんでした。</p>
+  </main>
+  <style>
+    main {
+      margin: 0 auto;
+      padding: clamp(1rem, 2vw, 2rem);
+      width: clamp(320px, 80vw, 800px);
+    }
+  </style>
+</Layout>

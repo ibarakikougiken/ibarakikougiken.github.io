@@ -1,0 +1,76 @@
+---
+import Category from "../components/Category.astro";
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/SocialCard.astro";
+---
+
+<Layout title="航技研SNS一覧">
+  <Category name="Social" text="SNS一覧" />
+  <main>
+    <h1>茨城大学航空技術研究会が運用するSNS一覧</h1>
+
+    <p>
+      各SNSで情報発信を行っています。フォロー、チャンネル登録をお願いします。
+    </p>
+
+    <div class="card_group">
+      <Card
+        title="Twitter"
+        id="ibarakikougiken"
+        url="https://x.com/intent/follow?screen_name=ibarakikougiken"
+        mdi="mdi:twitter"
+        color="#1da1f2"
+      />
+      <Card
+        title="Instagram"
+        id="ibaraki_kougiken"
+        url="https://www.instagram.com/ibaraki_kougiken/"
+        mdi="mdi:instagram"
+        color="#de0041"
+      />
+      <Card
+        title="Facebook"
+        id="ibarakikougiken"
+        url="https://www.facebook.com/ibarakikougiken"
+        mdi="mdi:facebook"
+        color="#1778f2"
+      />
+      <Card
+        title="YouTube"
+        id="ibarakikougiken"
+        url="https://www.youtube.com/@ibarakikougiken?sub_confirmation=1"
+        mdi="mdi:youtube"
+        color="#ff0000"
+      />
+      <Card
+        title="GitHub"
+        id="ibarakikougiken"
+        url="https://github.com/ibarakikougiken"
+        mdi="mdi:github"
+        color="#24292e"
+      />
+      <Card
+        title="Gmail"
+        id="ibarakikougiken"
+        url="mailto:ibarakikougiken@gmail.com"
+        mdi="mdi:gmail"
+        color="#d14836"
+      />
+    </div>
+    <style>
+      main {
+        margin: 0 auto;
+        width: clamp(320px, 80vw, 800px);
+      }
+      .card_group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin: 1rem;
+        padding: 1rem;
+      }
+    </style>
+  </main>
+</Layout>

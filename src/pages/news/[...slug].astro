@@ -1,0 +1,58 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import PostsHeader from "../../components/PostsHeader.astro";
+import "github-markdown-css/github-markdown-light.css";
+
+interface Props {
+  news: CollectionEntry<"news">;
+}
+
+export async function getStaticPaths() {
+  const news = await getCollection("news");
+  return news.map((news) => ({
+    params: { slug: news.slug },
+    props: {
+      news,
+    },
+  }));
+}
+
+const { news } = Astro.props;
+const { Content } = await news.render();
+---
+
+<Layout title={news.data.title} headerFixed={false}>
+  <PostsHeader
+    title={news.data.title}
+    publishedAt={news.data.publishedAt}
+    updatedAt={news.data.updatedAt}
+  />
+  <main class="markdown-body" data-pagefind-body>
+    <Content />
+  </main>
+</Layout>
+<style>
+  main {
+    width: clamp(320px, 80vw, 800px);
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    padding: 1rem;
+  }
+  img {
+    width: 100%;
+    height: auto;
+    margin: 1rem 0;
+  }
+  .markdown-body {
+    font-family: "Noto Sans JP", sans-serif;
+  }
+</style>
+<style is:inline>
+  img {
+    width: 100%;
+    height: auto;
+    margin: 1rem 0;
+  }
+</style>

@@ -1,0 +1,58 @@
+---
+interface Props {
+  title: string;
+  publishedAt: Date;
+  updatedAt: Date;
+}
+
+const { title, publishedAt, updatedAt } = Astro.props;
+function formatDate(date: Date) {
+  return new Date(date).toLocaleDateString("ja-JP", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+---
+
+<div class="header-bg"></div>
+<div class="wrapper">
+  <h1 class="title">{title}</h1>
+  <div class="info">
+    <div class="info_box">
+      <span>公開日</span>
+      <time datetime={publishedAt.toDateString()}
+        >{formatDate(publishedAt)}</time
+      >
+    </div>
+    <div class="info_box">
+      <span>更新日</span>
+      <time datetime={updatedAt.toDateString()}>{formatDate(updatedAt)}</time>
+    </div>
+  </div>
+</div>
+<style>
+  .header-bg {
+    width: 100%;
+    height: calc(clamp(4rem, 5vw, 5rem) + 1rem * 2);
+    background-color: var(--sky);
+  }
+  .wrapper {
+    width: clamp(320px, 80vw, 800px);
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  h1 {
+    text-align: center;
+  }
+  .info {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 1rem auto;
+  }
+  .info_box {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+</style>

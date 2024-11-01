@@ -1,0 +1,43 @@
+{
+  "name": "ibarakikougiken",
+  "type": "module",
+  "version": "0.0.1",
+  "packageManager": "pnpm@9.12.3",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "format": "prettier --write .",
+    "new": "tsx ./scripts/new.ts",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "0.9.4",
+    "@astrojs/mdx": "4.0.0-beta.2",
+    "@astrojs/react": "3.6.2",
+    "@astrojs/rss": "4.0.9",
+    "@astrojs/sitemap": "3.2.1",
+    "@fontsource-variable/noto-sans-jp": "^5.1.0",
+    "@iconify-json/mdi": "^1.2.1",
+    "@pagefind/default-ui": "^1.1.1",
+    "@vercel/og": "0.6.3",
+    "astro": "5.0.0-beta.3",
+    "astro-icon": "^1.1.1",
+    "github-markdown-css": "^5.7.0",
+    "lightningcss": "^1.27.0",
+    "pagefind": "^1.1.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/youtube": "^0.1.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "sharp": "^0.33.5",
+    "tsx": "^4.19.2"
+  }
+}

@@ -1,0 +1,25 @@
+---
+import { Image } from "astro:assets";
+interface Props {
+  src: string;
+  alt: string;
+}
+
+const { src, alt } = Astro.props;
+---
+
+<Image
+  src={src}
+  alt={alt}
+  width={800}
+  height={800 * (16 / 9)}
+  class="post-image"
+/>
+
+<style>
+  .post-image {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: auto;
+  }
+</style>
