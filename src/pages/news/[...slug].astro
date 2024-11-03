@@ -23,7 +23,20 @@ const { news } = Astro.props;
 const { Content } = await news.render();
 ---
 
-<Layout title={news.data.title} headerFixed={false}>
+<Layout
+  title={news.data.title}
+  og={{
+    title: news.data.title,
+    description: news.data.title + " | 茨城大学航空技術研究会",
+    image: `news/${news.slug}.png`,
+  }}
+  twitter={{
+    title: news.data.title,
+    description: news.data.title + " | 茨城大学航空技術研究会",
+    image: `news/${news.slug}.png`,
+  }}
+  headerFixed={false}
+>
   <PostsHeader
     title={news.data.title}
     publishedAt={news.data.publishedAt}
