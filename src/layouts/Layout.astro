@@ -5,8 +5,6 @@ import Header from "../components/Header.astro";
 import favicon from "../assets/images/favicon.png?url";
 import "@fontsource-variable/noto-sans-jp";
 
-const DOMAIN = import.meta.env.DOMAIN;
-
 interface Props {
   title: string;
   description?: string;
@@ -63,7 +61,10 @@ const {
         <>
           <meta property="og:title" content={og.title} />
           <meta property="og:description" content={og.description} />
-          <meta property="og:image" content={`https://${DOMAIN}/${og.image}`} />
+          <meta
+            property="og:image"
+            content={`https://ibarakikougiken.github.io/${og.image}`}
+          />
         </>
       )
     }
@@ -77,7 +78,7 @@ const {
           <meta name="twitter:description" content={twitter.description} />
           <meta
             name="twitter:image"
-            content={`https://${DOMAIN}/${twitter.image}`}
+            content={`https://ibarakikougiken.github.io/${twitter.image}`}
           />
         </>
       )
