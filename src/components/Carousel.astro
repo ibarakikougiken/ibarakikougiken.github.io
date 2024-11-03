@@ -14,13 +14,13 @@ const text = firstVideo?.text;
 ---
 
 <div id="yt-p-container">
-  <iframe id="yt-p" src={url.toString()}></iframe>
+  <iframe id="yt-p" src={url.toString()} loading="lazy"></iframe>
   <div class="overlay" data-id={firstVideo?.id}>
     {text?.map((t: string) => <span>{t}</span>)}
   </div>
 </div>
 
-<script is:inline src="https://www.youtube.com/iframe_api"></script>
+<script is:inline src="https://www.youtube.com/iframe_api" defer></script>
 <script>
   import { videos, PlayerVars } from "./carousel";
 
