@@ -33,7 +33,7 @@ export async function getOgImage(params: {
           }}
         >
           <img
-            src="https://pbs.twimg.com/profile_images/1032433255750856706/Y6pZS-xB.jpg"
+            src="https://pbs.twimg.com/profile_images/1853308937728315392/mUlL3BJu.jpg"
             alt={SITE_NAME}
             style={{
               width: 100,
