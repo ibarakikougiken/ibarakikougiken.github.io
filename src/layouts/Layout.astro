@@ -22,21 +22,9 @@ interface Props {
     name: string;
     content: string;
   }[];
-  noHeader?: boolean;
-  noFooter?: boolean;
-  headerFixed?: boolean;
 }
 
-const {
-  title,
-  description,
-  og,
-  twitter,
-  additionalMeta,
-  noHeader,
-  noFooter,
-  headerFixed = true,
-} = Astro.props;
+const { title, description, og, twitter, additionalMeta } = Astro.props;
 ---
 
 <!doctype html>
@@ -85,19 +73,13 @@ const {
     }
   </head>
   <body>
-    {
-      !noHeader && (
-        <Header
-          style={headerFixed ? "position: fixed;" : "position: absolute;"}
-        />
-      )
-    }
+    <Header />
 
     <div id="main">
       <slot />
     </div>
 
-    {!noFooter && <Footer />}
+    <Footer />
 
     <Icon
       name="mdi:arrow-up"

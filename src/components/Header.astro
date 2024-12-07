@@ -68,17 +68,14 @@ const { style } = Astro.props;
 
 <style>
   header {
-    position: fixed;
     inset: 0;
     height: clamp(4rem, 5vw, 5rem);
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 1rem clamp(0.2rem, calc(0.5rem + 1vw), 1rem);
-    border-radius: 999px;
     padding: 0 1rem;
     color: var(--blue);
-    border: 1px solid var(--sky);
+    border-bottom: 1px solid var(--sky);
     background-color: var(--white);
   }
 
@@ -96,7 +93,7 @@ const { style } = Astro.props;
     span {
       margin: 0 0.5rem;
       padding: 0;
-      color: #040fa1fa;
+      color: var(--blue);
       font-weight: bold;
       font-size: clamp(1.2rem, 1.6vw, 2rem);
       @media (width <= 1000px) {

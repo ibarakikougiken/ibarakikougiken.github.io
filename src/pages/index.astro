@@ -1,21 +1,43 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Carousel from "@components/Carousel.astro";
 ---
 
 <Layout
   title="茨大航技研"
   description="茨城大学公認学生団体 茨城大学航空技術研究会の Web サイトです。日々の活動やイベント情報を掲載します。"
-  noFooter
 >
-  <Carousel />
-</Layout>
+  <main>
+    <h1>茨城大学航空技術研究会のWebサイト</h1>
+    <div class="content">
+      <p>
+        茨城大学公認学生団体 茨城大学航空技術研究会のWebサイトです。
+        日々の活動やイベント情報を掲載します。
+      </p>
 
-<style>
-  main {
-    display: grid;
-    grid-template-rows: auto 1fr;
-    grid-template-columns: 100%;
-    width: clamp(320px, 80vw, 800px);
-  }
-</style>
+      <section>
+        <h2>お知らせ</h2>
+        <p>お知らせは<a href="/news">お知らせ一覧</a>からご覧ください。</p>
+      </section>
+    </div>
+  </main>
+
+  <style>
+    main {
+      margin: 0 auto;
+      width: clamp(320px, 80vw, 800px);
+    }
+    h1 {
+      text-align: center;
+    }
+    .content {
+      margin-top: 2rem;
+    }
+    section {
+      margin-top: 2rem;
+      a[href^="/"] {
+        color: #0070f3;
+        margin: 0 0.25rem;
+      }
+    }
+  </style>
+</Layout>

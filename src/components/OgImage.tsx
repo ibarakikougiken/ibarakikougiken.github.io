@@ -1,7 +1,5 @@
 import { ImageResponse } from "@vercel/og";
 
-const SITE_NAME = "茨城大学航空技術研究会";
-
 export async function getOgImage(params: {
   title: string;
   category: string;
@@ -33,8 +31,8 @@ export async function getOgImage(params: {
           }}
         >
           <img
-            src="https://pbs.twimg.com/profile_images/1853308937728315392/mUlL3BJu.jpg"
-            alt={SITE_NAME}
+            src="https://raw.githubusercontent.com/ibarakikougiken/ibarakikougiken.github.io/refs/heads/main/src/assets/images/favicon.png"
+            alt="茨城大学航空技術研究会"
             style={{
               width: 100,
               height: 100,
@@ -42,7 +40,7 @@ export async function getOgImage(params: {
             }}
           />
           <span style={{ fontSize: "2rem", fontWeight: 400, color: "black" }}>
-            {SITE_NAME}
+            茨城大学航空技術研究会
           </span>
         </div>
 
@@ -71,6 +69,19 @@ export async function getOgImage(params: {
             {title}
           </span>
         </div>
+
+        <span
+          style={{
+            position: "absolute",
+            bottom: 20,
+            left: 20,
+            fontSize: "2rem",
+            fontWeight: 400,
+            color: "black",
+          }}
+        >
+          https://ibarakikougiken.github.io/
+        </span>
 
         <div
           style={{

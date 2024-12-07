@@ -13,8 +13,10 @@ import "@pagefind/default-ui/css/ui.css";
     padding: 1rem;
   }
 </style>
-<script>
-  /// @ts-ignore
-  import { PagefindUI } from "@pagefind/default-ui";
-  new PagefindUI({ element: "#search" });
+<script is:inline>
+  window.onload = () => {
+    import("/pagefind/pagefind-ui.js").then(() => {
+      new PagefindUI({ element: "#search" });
+    });
+  };
 </script>
