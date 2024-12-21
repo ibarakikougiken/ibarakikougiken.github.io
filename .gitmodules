@@ -1,0 +1,3 @@
+[submodule "src/components/profile"]
+	path = src/components/profile
+	url = https://github.com/ibarakikougiken/ibarakikougiken

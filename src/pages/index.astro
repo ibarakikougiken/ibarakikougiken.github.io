@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Profile from "../components/profile/README.md";
 ---
 
 <Layout
@@ -7,17 +8,8 @@ import Layout from "../layouts/Layout.astro";
   description="茨城大学公認学生団体 茨城大学航空技術研究会の Web サイトです。日々の活動やイベント情報を掲載します。"
 >
   <main>
-    <h1>茨城大学航空技術研究会のWebサイト</h1>
     <div class="content">
-      <p>
-        茨城大学公認学生団体 茨城大学航空技術研究会のWebサイトです。
-        日々の活動やイベント情報を掲載します。
-      </p>
-
-      <section>
-        <h2>お知らせ</h2>
-        <p>お知らせは<a href="/news">お知らせ一覧</a>からご覧ください。</p>
-      </section>
+      <Profile />
     </div>
   </main>
 
@@ -30,7 +22,7 @@ import Layout from "../layouts/Layout.astro";
       text-align: center;
     }
     .content {
-      margin-top: 2rem;
+      margin: 2rem 0;
     }
     section {
       margin-top: 2rem;

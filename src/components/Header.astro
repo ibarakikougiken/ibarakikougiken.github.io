@@ -13,7 +13,13 @@ const { style } = Astro.props;
 
 <div id="header" data-pagefind-ignore="all">
   <header data-pagefind-ignore="all" style={style}>
-    <Icon name="mdi:magnify" width="2rem" height="2rem" class="sp_only" />
+    <Icon
+      name="mdi:magnify"
+      width="2rem"
+      height="2rem"
+      class="sp_only"
+      desc="検索アイコン"
+    />
     <a href="/" class="logo_wrapper">
       <Image
         loading="eager"
@@ -36,7 +42,13 @@ const { style } = Astro.props;
         <Icon name="mdi:menu" width="3rem" height="3rem" />
       </div>
     </nav>
-    <Icon name="mdi:magnify" width="2rem" height="2rem" class="pc_only" />
+    <Icon
+      name="mdi:magnify"
+      width="2rem"
+      height="2rem"
+      desc="検索アイコン"
+      tabindex={0}
+    />
   </header>
 
   {/* 検索ダイアログ */}
@@ -271,6 +283,9 @@ const { style } = Astro.props;
 
       el.addEventListener("click", () => {
         open_dialog(dialog);
+      });
+      el.addEventListener("keydown", (e) => {
+        if ((e as KeyboardEvent).key === "Enter") open_dialog(dialog);
       });
 
       dialog?.addEventListener("click", (e) => {
