@@ -4,9 +4,35 @@
 
 ## 🚀 Quick start
 
-1. Clone this repository
-2. Install dependencies with `pnpm install`
-3. Start the development server with `pnpm dev`
+### **Prerequisites**
+
+- [Git](https://git-scm.com/downloads)
+- [Nix package manager](https://nixos.org/download.html)
+
+1.  **Clone the repository.**
+
+    ```shell
+    git clone https://github.com/ibarakikougiken/ibarakikougiken.github.io.git <YOUR_PROJECT_NAME>
+    ```
+
+2.  **Enter the environment.**
+
+    ```shell
+    cd <YOUR_PROJECT_NAME>
+    nix develop
+    ```
+
+3.  **Install dependencies.**
+
+    ```shell
+    pnpm install
+    ```
+
+4.  **Start developing.**
+
+    ```shell
+    pnpm dev
+    ```
 
 ## 🧐 What's inside?
 
@@ -52,6 +78,40 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm new article`     | Create a new article                             |
 | `pnpm new news`        | Create a new news post                           |
 
+## 🐛 Troubleshooting
+
+### `pnpm: command not found`
+
+If you see this error, it means you have not entered the environment.
+
+Enter the environment with the following command:
+
+```shell
+nix develop
+```
+
+### `error: experimental Nix feature ... is disabled; use '--extra-experimental-features ...' to enable it`
+
+If you see this error, you need to enable the experimental Nix features.
+
+```shell
+echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+```
+
+Then, restart the environment:
+
+```shell
+nix develop
+```
+
+### `error: path ‘/nix/store/...-source/flake.nix’ does not exist`
+
+If you see this error, it means the `flake.nix` file is missing. You need to add it to the repository.
+
+```shell
+git add flake.nix
+```
+
 ## 📚 Resources
 
 - [Astro Documentation](https://docs.astro.build/ja/)
@@ -65,3 +125,11 @@ All commands are run from the root of the project, from a terminal:
 ## 📝 License
 
 No license. All rights reserved under Japanese law.
+
+```
+
+```
+
+```
+
+```
