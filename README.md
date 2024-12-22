@@ -95,7 +95,8 @@ nix develop
 If you see this error, you need to enable the experimental Nix features.
 
 ```shell
-echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+mkdir -p ~/.config/nix && \
+echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
 ```
 
 Then, restart the environment:
@@ -125,11 +126,3 @@ git add flake.nix
 ## 📝 License
 
 No license. All rights reserved under Japanese law.
-
-```
-
-```
-
-```
-
-```
