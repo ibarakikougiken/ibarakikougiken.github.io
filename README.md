@@ -13,6 +13,7 @@
 
     ```shell
     git clone https://github.com/ibarakikougiken/ibarakikougiken.github.io.git <YOUR_PROJECT_NAME>
+    git submodule update --init
     ```
 
 2.  **Enter the environment.**
@@ -107,11 +108,13 @@ nix develop
 
 ### `error: path ‘/nix/store/...-source/flake.nix’ does not exist`
 
-If you see this error, it means the `flake.nix` file is missing. You need to add it to the repository.
+You need to have git track the `flake.nix`.
 
 ```shell
 git add flake.nix
 ```
+
+see also: [Nix Flakes, Part 1: An introduction and tutorial](https://www.tweag.io/blog/2020-05-25-flakes/)
 
 ## 📚 Resources
 
