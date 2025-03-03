@@ -2,7 +2,7 @@
   description = "Node environment";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -15,8 +15,8 @@
         devShells.default = packages.mkShell {
           buildInputs = with packages; [
             git
-            nodejs_22
-            nodePackages.pnpm
+            nodejs_23
+            nodejs_23.pkgs.pnpm
           ];
 
           pure = true;
