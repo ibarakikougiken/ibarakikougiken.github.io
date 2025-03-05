@@ -1,0 +1,170 @@
+---
+import { Icon } from "astro-icon/components";
+import "@pagefind/default-ui/css/ui.css";
+---
+
+<div id="search_component">
+  <Icon
+    id="search_component_magnify"
+    name="mdi:magnify"
+    width="2rem"
+    height="2rem"
+    desc="検索アイコン"
+    tabindex={0}
+  />
+  <dialog id="search_dialog">
+    <div class="dialog_header">
+      <span>
+        <h1>検索</h1>
+        <span>検索ワードを空白区切りで入力してください</span>
+      </span>
+      <Icon
+        id="search_component_close"
+        name="mdi:close"
+        width="2rem"
+        height="2rem"
+        desc="検索ダイアログを閉じるアイコン"
+      />
+    </div>
+    <div id="search"></div>
+  </dialog>
+</div>
+
+<style is:global>
+  .pagefind-ui__results {
+    overflow-y: scroll;
+  }
+</style>
+
+<style>
+  #search {
+    padding: 1rem;
+  }
+  svg[data-icon="mdi:magnify"],
+  svg[data-icon="mdi:close"] {
+    cursor: pointer;
+  }
+
+  #search_component {
+    display: flex;
+    align-items: center;
+  }
+
+  #search_dialog {
+    width: clamp(320px, 80vw, 800px);
+    height: clamp(320px, 80vh, 100vh);
+    padding: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    .dialog_header {
+      display: flex;
+      align-items: center;
+      padding: 1rem 1rem 0;
+      h1 {
+        margin: 0;
+        font-size: 2rem;
+      }
+    }
+    [data-icon="mdi:close"] {
+      margin-left: auto;
+      cursor: pointer;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 1rem;
+      overflow-y: scroll;
+      li {
+        margin: 1rem 0;
+        a {
+          text-decoration: none;
+          color: var(--blue);
+          font-size: 1.5rem;
+        }
+      }
+    }
+    &::backdrop {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    &[open] {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      grid-template-columns: 100%;
+    }
+  }
+
+  html:has(dialog[open]) {
+    /* 背景のスクロール禁止 */
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  import { PagefindUI } from "@pagefind/default-ui";
+  new PagefindUI({
+    element: "#search",
+  });
+
+  function open_dialog(dialog: HTMLDialogElement) {
+    dialog.showModal();
+    dialog.animate(
+      [
+        { transform: "scale(0.9)", opacity: 0 },
+        { transform: "scale(1)", opacity: 1 },
+      ],
+      {
+        duration: 200,
+        fill: "forwards",
+      },
+    );
+  }
+
+  function close_dialog(dialog: HTMLDialogElement) {
+    dialog
+      .animate(
+        [
+          { transform: "scale(1)", opacity: 1 },
+          { transform: "scale(0.9)", opacity: 0 },
+        ],
+        {
+          duration: 200,
+          fill: "forwards",
+        },
+      )
+      .finished.then(() => dialog.close());
+  }
+
+  const dialog = document.querySelector<HTMLDialogElement>("#search_dialog");
+  if (dialog) {
+    const search_icon = document.getElementById("search_component_magnify");
+    const close_icon = document.getElementById("search_component_close");
+
+    if (search_icon && close_icon) {
+      search_icon.addEventListener("click", () => open_dialog(dialog));
+      close_icon.addEventListener("click", () => close_dialog(dialog));
+
+      search_icon.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          open_dialog(dialog);
+        }
+      });
+      close_icon.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          close_dialog(dialog);
+        }
+      });
+    }
+
+    dialog.addEventListener("click", (e) => {
+      // ダイアログの外側をクリックしたとき
+      if (e.target === dialog) {
+        close_dialog(dialog);
+      }
+    });
+    dialog.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        close_dialog(dialog);
+      }
+    });
+  }
+</script>

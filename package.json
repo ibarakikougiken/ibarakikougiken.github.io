@@ -6,11 +6,11 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build && pagefind --site dist",
+    "check": "astro check",
     "preview": "astro preview",
+    "build": "astro build && pagefind --site dist",
     "format": "prettier --write .",
-    "new": "tsx ./scripts/new.ts",
-    "astro": "astro"
+    "new": "tsx ./scripts/new.ts"
   },
   "dependencies": {
     "@astrojs/check": "0.9.4",
@@ -18,7 +18,6 @@
     "@astrojs/react": "4.1.2",
     "@astrojs/rss": "4.0.10",
     "@astrojs/sitemap": "3.2.1",
-    "@fontsource-variable/noto-sans-jp": "^5.1.1",
     "@iconify-json/mdi": "^1.2.2",
     "@pagefind/default-ui": "^1.3.0",
     "@vercel/og": "0.6.4",

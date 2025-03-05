@@ -1,0 +1,230 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div id="overlay_component">
+  <Icon
+    id="overlay_open"
+    name="mdi:menu"
+    width="2rem"
+    height="2rem"
+    desc="メニューを開くアイコン"
+    tabindex={0}
+    style={{ display: "block" }}
+  />
+  <Icon
+    id="overlay_close"
+    name="mdi:close"
+    width="2rem"
+    height="2rem"
+    desc="メニューを閉じるアイコン"
+    tabindex={0}
+    style={{ display: "none" }}
+  />
+  <nav id="overlay_navigation" aria-hidden="true">
+    <ul id="top_ul">
+      <li class="nav_item">
+        <div class="item">
+          <a href="/news">ニュース</a>
+        </div>
+      </li>
+
+      <li class="nav_item">
+        <div class="item">
+          <a href="/about">私たちについて</a>
+          <button aria-label="サブメニューを開く" class="sub_nav_button">
+            <Icon
+              name="mdi:plus"
+              width="1rem"
+              height="1rem"
+              desc="サブメニューを開くアイコン"
+              style={{ display: "block" }}
+            />
+            <Icon
+              name="mdi:minus"
+              width="1rem"
+              height="1rem"
+              desc="サブメニューを閉じるアイコン"
+              style={{ display: "none" }}
+            />
+          </button>
+        </div>
+        <ul class="sub_nav">
+          <li>
+            <div class="item">
+              <a href="/about">歴史</a>
+            </div>
+          </li>
+          <li>
+            <div class="item">
+              <a href="/about#acces">アクセス</a>
+            </div>
+          </li>
+          <li>
+            <div class="item">
+              <a href="/social">SNS</a>
+            </div>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav_item">
+        <div class="item">
+          <a href="/articles">記事</a>
+        </div>
+      </li>
+
+      <li class="nav_item">
+        <div class="item">
+          <a href="/contact">お問い合わせ</a>
+        </div>
+      </li>
+
+      <li class="nav_item">
+        <div class="item">
+          <a href="/recruitment">新歓</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <style>
+    #overlay_component {
+      display: flex;
+      align-items: center;
+
+      [data-icon="mdi:menu"],
+      [data-icon="mdi:close"],
+      [data-icon="mdi:plus"],
+      [data-icon="mdi:minus"] {
+        cursor: pointer;
+      }
+    }
+
+    #overlay_navigation {
+      display: none;
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      width: 100%;
+      height: calc(100vh - var(--header-height));
+      background-color: var(--white);
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      overflow: auto;
+    }
+
+    #top_ul {
+      list-style: none;
+      padding: 0;
+      margin: auto;
+      max-width: 480px;
+    }
+
+    .nav_item {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      a {
+        display: block;
+        width: 100%;
+        text-decoration: none;
+        color: var(--black);
+        font-size: 1.5rem;
+        padding: 1rem;
+      }
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 4rem;
+      }
+      &:last-child {
+        border-bottom: none;
+      }
+      &:has(.sub_nav[data-open="true"]) {
+        padding-bottom: 0;
+      }
+    }
+
+    .sub_nav {
+      display: none;
+      list-style: none;
+      padding: 0;
+      padding-left: 1.4rem;
+      margin: 0;
+      li {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+      &[data-open="true"] {
+        display: block;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      &[data-open="false"] {
+        display: none;
+      }
+      animation: fadeIn 1s forwards;
+    }
+
+    .sub_nav_button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 1.5rem;
+      height: 100%;
+      aspect-ratio: 1/1;
+      border-left: 1px solid rgba(0, 0, 0, 0.2);
+    }
+  </style>
+
+  <script>
+    const open = document.getElementById("overlay_open");
+    const close = document.getElementById("overlay_close");
+    const nav = document.getElementById("overlay_navigation");
+
+    if (open && close && nav) {
+      open.addEventListener("click", () => {
+        open.style.display = "none";
+        close.style.display = "block";
+        nav.style.display = "block";
+        nav.setAttribute("aria-hidden", "false");
+
+        document.body.style.overflow = "hidden";
+      });
+
+      close.addEventListener("click", () => {
+        open.style.display = "block";
+        close.style.display = "none";
+        nav.style.display = "none";
+        nav.setAttribute("aria-hidden", "true");
+
+        document.body.style.overflow = "auto";
+      });
+    }
+
+    const buttons = document.querySelectorAll(".sub_nav_button");
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const subNav = button.parentElement?.nextElementSibling as HTMLElement;
+        if (!subNav) return;
+        const [open_button, close_button] = button.children as unknown as [
+          HTMLElement,
+          HTMLElement,
+        ];
+        if (open_button && close_button) {
+          if (subNav.style.display === "block") {
+            subNav.style.display = "none";
+            subNav.dataset.open = "false";
+            open_button.style.display = "block";
+            close_button.style.display = "none";
+          } else {
+            subNav.style.display = "block";
+            subNav.dataset.open = "true";
+            open_button.style.display = "none";
+            close_button.style.display = "block";
+          }
+        }
+      });
+    });
+  </script>
+</div>

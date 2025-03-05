@@ -1,0 +1,155 @@
+---
+import { Image } from "astro:assets";
+import icon from "../../assets/images/favicon.png";
+import Search from "./Search.astro";
+import Overlay from "./Overlay.astro";
+---
+
+<header id="header_component" data-pagefind-ignore="all">
+  <section id="header_content">
+    <a id="header_name" href="/">
+      <Image
+        loading="eager"
+        decoding="auto"
+        src={icon}
+        alt="茨城大学航空技術研究会"
+      />
+    </a>
+    <nav id="header_navigation">
+      <ul>
+        <li>
+          <a href="/news">News</a>
+        </li>
+        <li>
+          <a href="/about">About</a>
+        </li>
+        <li>
+          <a href="/articles">Articles</a>
+        </li>
+        <li>
+          <a href="/contact">Contact</a>
+        </li>
+      </ul>
+    </nav>
+  </section>
+  <div id="header_menu">
+    <Search />
+    <Overlay />
+  </div>
+</header>
+
+<style>
+  :root {
+    --header-height: clamp(4rem, 5vw, 5rem);
+  }
+
+  #header_component {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    height: var(--header-height);
+    padding: 0 1rem;
+    color: var(--black);
+    background-color: var(--white);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    backface-visibility: hidden;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns: 1fr auto;
+    justify-items: stretch;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  #header_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 clamp(0.5rem, 1vw, 1rem);
+  }
+
+  #header_name {
+    display: flex;
+    align-items: center;
+    padding: 0.4rem;
+    img {
+      width: clamp(3rem, 4vw, 4rem);
+      height: clamp(3rem, 4vw, 4rem);
+      aspect-ratio: 1/1;
+      cursor: pointer;
+    }
+  }
+
+  #header_navigation {
+    display: flex;
+    align-items: center;
+    ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      @media screen and (max-width: 720px) {
+        display: none;
+      }
+      li {
+        a {
+          display: block;
+        }
+        &::after {
+          content: "";
+          display: block;
+          width: 0;
+          height: 2px;
+          background-color: var(--blue);
+          transition: width 0.3s;
+        }
+        &:hover::after {
+          width: 100%;
+        }
+      }
+      li:has(a[data-active="true"]) {
+        border-bottom: 2px solid var(--sky);
+        &::after {
+          display: none;
+        }
+      }
+      a[href] {
+        text-decoration: none;
+        color: var(--black);
+      }
+    }
+  }
+
+  #header_menu {
+    display: flex;
+    gap: 1rem;
+  }
+
+  a:has(svg) {
+    cursor: pointer;
+  }
+
+  [data-icon] {
+    cursor: pointer;
+    margin: auto;
+    baseline: 0;
+  }
+</style>
+<script>
+  const header = document.getElementById("header_component");
+  const anchors = header?.querySelectorAll("a");
+
+  anchors?.forEach((anchor) => {
+    const url = new URL(anchor.href);
+    const current = new URL(location.href);
+
+    if (url.pathname === current.pathname) {
+      anchor.dataset.active = "true";
+    } else {
+      anchor.dataset.active = "false";
+    }
+  });
+</script>
