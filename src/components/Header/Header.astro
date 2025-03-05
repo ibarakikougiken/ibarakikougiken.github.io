@@ -40,7 +40,6 @@ import Overlay from "./Overlay.astro";
 
 <style>
   :root {
-    --icon-size: 2rem;
     --header-height: clamp(4rem, 5vw, 5rem);
   }
 
@@ -49,34 +48,32 @@ import Overlay from "./Overlay.astro";
     top: 0;
     z-index: 1000;
 
-    width: 100%;
     height: var(--header-height);
+    padding: 0 1rem;
     color: var(--black);
     background-color: var(--white);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     backface-visibility: hidden;
     overflow: hidden;
 
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    justify-items: stretch;
     align-items: center;
+    gap: 1rem;
   }
 
   #header_content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1rem;
-    width: calc(100% - var(--icon-size) * 2);
-    height: 100%;
-
-    margin-left: var(--icon-size);
-    margin-right: calc(var(--icon-size) / 2);
+    padding: 0 clamp(0.5rem, 1vw, 1rem);
   }
 
   #header_name {
     display: flex;
     align-items: center;
+    padding: 0.4rem;
     img {
       width: clamp(3rem, 4vw, 4rem);
       height: clamp(3rem, 4vw, 4rem);
@@ -94,6 +91,9 @@ import Overlay from "./Overlay.astro";
       list-style: none;
       padding: 0;
       margin: 0;
+      @media screen and (max-width: 720px) {
+        display: none;
+      }
       li {
         a {
           display: block;
@@ -126,7 +126,6 @@ import Overlay from "./Overlay.astro";
   #header_menu {
     display: flex;
     gap: 1rem;
-    margin-right: 1rem;
   }
 
   a:has(svg) {
