@@ -139,17 +139,14 @@ import Overlay from "./Overlay.astro";
   }
 </style>
 <script>
-  const header = document.getElementById("header_component");
-  const anchors = header?.querySelectorAll("a");
+  const current = new URL(location.href).pathname.replace(/\/$/, "");
+  const anchors = document.querySelectorAll<HTMLAnchorElement>(
+    "#header_navigation a",
+  );
 
   anchors?.forEach((anchor) => {
     const url = new URL(anchor.href);
-    const current = new URL(location.href);
-
-    if (url.pathname === current.pathname) {
-      anchor.dataset.active = "true";
-    } else {
-      anchor.dataset.active = "false";
-    }
+    const active = url.pathname.replace(/\/$/, "") === current;
+    anchor.dataset.active = active.toString();
   });
 </script>
