@@ -54,17 +54,8 @@ const { Content } = await articles.render();
     margin-bottom: 2rem;
     padding: 1rem;
   }
-  .markdown-body {
-    font-family: "Noto Sans JP", sans-serif;
-  }
 </style>
 <style is:inline>
-  img {
-    width: 100%;
-    height: auto;
-    margin: 1rem 0;
-    object-fit: cover;
-  }
   .markdown-body pre::before {
     content: attr(data-language);
     display: block;
@@ -72,11 +63,17 @@ const { Content } = await articles.render();
     top: -0.25rem;
     left: 0;
   }
-  code {
+  .markdown-body img {
+    width: 100%;
+    height: auto;
+    margin: 1rem 0;
+    object-fit: cover;
+  }
+  .markdown-body code {
     counter-reset: step;
     counter-increment: step 0;
   }
-  code .line::before {
+  .markdown-body code .line::before {
     content: counter(step);
     counter-increment: step;
     width: 1rem;
