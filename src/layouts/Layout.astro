@@ -3,6 +3,9 @@ import { Icon } from "astro-icon/components";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header/Header.astro";
 import favicon from "../assets/images/favicon.png?url";
+import Ogp from "@components/Metas/Ogp.astro";
+import Twitter from "@components/Metas/Twitter.astro";
+import Gtag from "@components/Metas/Gtag.astro";
 
 interface Props {
   title: string;
@@ -38,48 +41,32 @@ const { title, description, og, twitter, additionalMeta } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href={favicon} />
     {
-      additionalMeta &&
-        additionalMeta.map((meta) => (
-          <meta name={meta.name} content={meta.content} />
-        ))
+      additionalMeta?.map((meta) => (
+        <meta name={meta.name} content={meta.content} />
+      ))
     }
     {
       og && (
-        <>
-          <meta property="og:title" content={og.title} />
-          <meta property="og:description" content={og.description} />
-          <meta
-            property="og:image"
-            content={`https://ibarakikougiken.github.io/${og.image}`}
-          />
-        </>
+        <Ogp title={og.title} description={og.description} image={og.image} />
       )
     }
     {
       twitter && (
-        <>
-          <meta name="twitter:card" content="summary" />
-          <meta name="twitter:site" content="@ibarakikougiken" />
-          <meta name="twitter:creator" content="@ibarakikougiken" />
-          <meta name="twitter:title" content={twitter.title} />
-          <meta name="twitter:description" content={twitter.description} />
-          <meta
-            name="twitter:image"
-            content={`https://ibarakikougiken.github.io/${twitter.image}`}
-          />
-        </>
+        <Twitter
+          title={twitter.title}
+          description={twitter.description}
+          image={twitter.image}
+        />
       )
     }
+    {import.meta.env.PROD && <Gtag />}
   </head>
   <body>
     <Header />
-
     <div id="main">
       <slot />
     </div>
-
     <Footer />
-
     <Icon
       name="mdi:arrow-up"
       width="3rem"
@@ -140,6 +127,8 @@ const { title, description, og, twitter, additionalMeta } = Astro.props;
     border: 1px solid var(--black);
     border-radius: 50%;
     animation: fadeIn 0.3s ease forwards;
+    user-select: none;
+    -webkit-user-drag: none;
   }
   @keyframes fadeIn {
     0% {
