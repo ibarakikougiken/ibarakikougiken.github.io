@@ -2,7 +2,7 @@
   "name": "ibarakikougiken",
   "type": "module",
   "version": "0.0.1",
-  "packageManager": "pnpm@10.5.2",
+  "packageManager": "pnpm@10.14.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -10,33 +10,32 @@
     "preview": "astro preview",
     "build": "astro build && pagefind --site dist",
     "format": "prettier --write .",
-    "new": "tsx ./scripts/new.ts"
+    "new": "node ./scripts/new.ts"
   },
   "dependencies": {
     "@astrojs/check": "0.9.4",
-    "@astrojs/mdx": "4.1.0",
+    "@astrojs/mdx": "4.3.3",
     "@astrojs/partytown": "^2.1.4",
-    "@astrojs/react": "4.2.1",
-    "@astrojs/rss": "4.0.11",
-    "@astrojs/sitemap": "3.2.1",
+    "@astrojs/react": "4.3.0",
+    "@astrojs/rss": "4.0.12",
+    "@astrojs/sitemap": "3.4.2",
     "@iconify-json/mdi": "^1.2.3",
     "@pagefind/default-ui": "^1.3.0",
     "@vercel/og": "0.6.5",
-    "astro": "5.4.2",
+    "astro": "5.12.8",
     "astro-icon": "^1.1.5",
     "github-markdown-css": "^5.8.1",
-    "lightningcss": "^1.29.1",
+    "lightningcss": "^1.30.1",
     "pagefind": "^1.3.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "typescript": "^5.8.2"
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "typescript": "^5.9.2"
   },
   "devDependencies": {
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "prettier": "^3.5.3",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
+    "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
-    "sharp": "^0.33.5",
-    "tsx": "^4.19.3"
+    "sharp": "^0.34.3"
   }
 }
