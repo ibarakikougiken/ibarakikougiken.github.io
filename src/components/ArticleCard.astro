@@ -1,0 +1,62 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  article: CollectionEntry<"articles">;
+}
+
+const { article } = Astro.props;
+---
+
+<a href={`/articles/${article.slug}`} class="card">
+  <h3>{article.data.title}</h3>
+  <p class="date">{article.data.publishedAt.toLocaleDateString("ja-JP")}</p>
+  <p>{article.body.slice(0, 100)}</p>
+</a>
+
+<style>
+  .card {
+    display: block;
+    background-color: var(--snow);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: var(--black);
+    transition:
+      transform 0.2s ease-in-out,
+      box-shadow 0.2s ease-in-out;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .card h3 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--blue);
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .card .date {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+
+  .card p {
+    font-size: 1rem;
+    line-height: 1.5;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+</style>

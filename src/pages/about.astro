@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Category from "../components/Category.astro";
+import Profile from "../components/profile/README.md";
 
 type Range<
   N extends number,
@@ -108,7 +109,9 @@ const timeline: Record<
 <Layout title="航技研について">
   <Category name="About" text="航技研について" />
   <main>
-    <h1>茨城大学航空技術研究会について</h1>
+    <Profile />
+
+    <hr />
 
     <h2>沿革</h2>
     <ul class="timeline">
@@ -145,6 +148,14 @@ const timeline: Record<
     margin: 0 auto;
     padding: clamp(1rem, 2vw, 2rem);
     width: clamp(320px, 80vw, 800px);
+  }
+
+  section {
+    margin-top: 2rem;
+    a[href^="/"] {
+      color: #0070f3;
+      margin: 0 0.25rem;
+    }
   }
 
   ul {

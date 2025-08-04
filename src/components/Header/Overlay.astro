@@ -22,6 +22,8 @@ import { Icon } from "astro-icon/components";
     style={{ display: "none" }}
   />
   <nav id="overlay_navigation" aria-hidden="true">
+    <h2 class="title">メニュー</h2>
+
     <ul id="top_ul">
       <li class="nav_item">
         <div class="item">
@@ -31,41 +33,19 @@ import { Icon } from "astro-icon/components";
 
       <li class="nav_item">
         <div class="item">
-          <a href="/about">私たちについて</a>
-          <button aria-label="サブメニューを開く" class="sub_nav_button">
-            <Icon
-              name="mdi:plus"
-              width="1rem"
-              height="1rem"
-              desc="サブメニューを開くアイコン"
-              style={{ display: "block" }}
-            />
-            <Icon
-              name="mdi:minus"
-              width="1rem"
-              height="1rem"
-              desc="サブメニューを閉じるアイコン"
-              style={{ display: "none" }}
-            />
-          </button>
+          <a href="/articles">記事</a>
         </div>
-        <ul class="sub_nav">
-          <li>
-            <div class="item">
-              <a href="/about">歴史</a>
-            </div>
-          </li>
-          <li>
-            <div class="item">
-              <a href="/social">SNS</a>
-            </div>
-          </li>
-        </ul>
       </li>
 
       <li class="nav_item">
         <div class="item">
-          <a href="/articles">記事</a>
+          <a href="/social">SNS</a>
+        </div>
+      </li>
+
+      <li class="nav_item">
+        <div class="item">
+          <a href="/about">研究会について</a>
         </div>
       </li>
 
@@ -77,7 +57,7 @@ import { Icon } from "astro-icon/components";
 
       <li class="nav_item">
         <div class="item">
-          <a href="/recruitment">新歓</a>
+          <a href="https://ibarakikougiken.github.io/recruitment/">新歓</a>
         </div>
       </li>
 
@@ -109,7 +89,7 @@ import { Icon } from "astro-icon/components";
       left: 0;
       width: 100%;
       height: calc(100vh - var(--header-height));
-      background-color: var(--white);
+      background-color: var(--snow);
       border: 1px solid rgba(0, 0, 0, 0.3);
       overflow: auto;
     }
@@ -119,6 +99,10 @@ import { Icon } from "astro-icon/components";
       padding: 0;
       margin: auto;
       max-width: 480px;
+    }
+
+    .title {
+      text-align: center;
     }
 
     .nav_item {
@@ -140,41 +124,6 @@ import { Icon } from "astro-icon/components";
       &:last-child {
         border-bottom: none;
       }
-      &:has(.sub_nav[data-open="true"]) {
-        padding-bottom: 0;
-      }
-    }
-
-    .sub_nav {
-      display: none;
-      list-style: none;
-      padding: 0;
-      padding-left: 1.4rem;
-      margin: 0;
-      li {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        &:last-child {
-          border-bottom: none;
-        }
-      }
-      &[data-open="true"] {
-        display: block;
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
-      }
-      &[data-open="false"] {
-        display: none;
-      }
-      animation: fadeIn 1s forwards;
-    }
-
-    .sub_nav_button {
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 1.5rem;
-      height: 100%;
-      aspect-ratio: 1/1;
-      border-left: 1px solid rgba(0, 0, 0, 0.2);
     }
   </style>
 

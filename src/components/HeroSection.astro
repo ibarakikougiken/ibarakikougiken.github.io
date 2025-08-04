@@ -1,0 +1,217 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+import slideImage1 from "../assets/images/hero/slideImage1.jpg";
+import slideImage2 from "../assets/images/hero/slideImage2.jpg";
+import slideImage3 from "../assets/images/hero/slideImage3.jpg";
+
+const slides = [
+  {
+    image: slideImage1,
+    title: "航空技術研究会",
+    description: "茨城大学公認学生団体",
+    link: "/about",
+    linkText: "活動内容を見る",
+  },
+  {
+    image: slideImage2,
+    title: "イベント情報",
+    description: "様々なイベントで活動中！",
+    link: "/news",
+    linkText: "お知らせを見る",
+  },
+  {
+    image: slideImage3,
+    title: "活動のきろく",
+    description: "飛行ロボットや水ロケットの製作ログ",
+    link: "/articles",
+    linkText: "記事を見る",
+  },
+];
+---
+
+<section class="carousel-section">
+  <div class="carousel-container">
+    {
+      slides.map((slide, index) => (
+        <div class="carousel-slide" data-index={index}>
+          <Image
+            src={slide.image}
+            alt={slide.title}
+            loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
+            class="carousel-image"
+          />
+          <div class="carousel-overlay" />
+          <div class="carousel-content">
+            <h1>{slide.title}</h1>
+            <p>{slide.description}</p>
+            <a href={slide.link} class="button">
+              {slide.linkText}
+            </a>
+          </div>
+        </div>
+      ))
+    }
+    <button class="carousel-nav prev" aria-label="Previous slide">
+      <Icon name="mdi:chevron-left" width="3rem" height="3rem" />
+    </button>
+    <button class="carousel-nav next" aria-label="Next slide">
+      <Icon name="mdi:chevron-right" width="3rem" height="3rem" />
+    </button>
+  </div>
+</section>
+
+<style>
+  .carousel-section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+  }
+
+  .carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-slide.active {
+    opacity: 1;
+  }
+
+  .carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    z-index: 0;
+  }
+
+  .carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+
+  .carousel-content {
+    position: relative;
+    z-index: 2;
+    color: var(--snow);
+    text-align: center;
+    max-width: 800px;
+    padding: 1rem;
+  }
+
+  .carousel-content h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+  }
+
+  .carousel-content p {
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    margin-bottom: 2rem;
+  }
+
+  .button {
+    display: inline-block;
+    background-color: var(--blue);
+    color: var(--snow);
+    padding: 0.8rem 2rem;
+    text-decoration: none;
+    border: 1px solid var(--blue);
+    border-radius: 5px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    z-index: 3;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-nav.prev {
+    left: 1rem;
+  }
+
+  .carousel-nav.next {
+    right: 1rem;
+  }
+
+  .carousel-nav:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+</style>
+
+<script>
+  const slides = document.querySelectorAll(".carousel-slide");
+  const prevButton = document.querySelector(".carousel-nav.prev");
+  const nextButton = document.querySelector(".carousel-nav.next");
+  let currentIndex = 0;
+  let interval_counter = 0;
+
+  function showSlide(index: number) {
+    slides.forEach((slide, i) => {
+      slide.classList.remove("active");
+      if (i === index) {
+        slide.classList.add("active");
+      }
+    });
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slides.length;
+    showSlide(currentIndex);
+    interval_counter = 0;
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    showSlide(currentIndex);
+    interval_counter = 0;
+  }
+
+  showSlide(currentIndex);
+
+  prevButton?.addEventListener("click", prevSlide);
+  nextButton?.addEventListener("click", nextSlide);
+
+  window.requestAnimationFrame(function animate() {
+    if (interval_counter > 6 * 10 ** 3) {
+      nextSlide();
+      interval_counter = 0;
+    }
+    window.requestAnimationFrame(animate);
+  });
+  setInterval(() => {
+    interval_counter += 10 ** 3;
+  }, 10 ** 3);
+</script>

@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  newsItem: CollectionEntry<"news">;
+}
+
+const { newsItem } = Astro.props;
+---
+
+<a href={`/news/${newsItem.slug}`} class="card">
+  <h3>{newsItem.data.title}</h3>
+  <p class="date">{newsItem.data.publishedAt.toLocaleDateString("ja-JP")}</p>
+</a>
+
+<style>
+  .card {
+    display: block;
+    background-color: var(--snow);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: var(--black);
+    transition:
+      transform 0.2s ease-in-out,
+      box-shadow 0.2s ease-in-out;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .card h3 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--blue);
+  }
+
+  .card .date {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+</style>
